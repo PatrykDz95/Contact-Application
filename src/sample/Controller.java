@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 
 public class Controller {
 
@@ -23,7 +24,8 @@ public class Controller {
     private TableColumn phoneColumn;
     @FXML
     private TableColumn notesColumn;
-
+    @FXML
+    private GridPane cos;
     public void initialize() {
                  table = new TableView<>();
                 ObservableList<ContactList> data = FXCollections.observableArrayList(
@@ -51,6 +53,7 @@ public class Controller {
 
         table.setItems(data);
         table.getColumns().addAll(firstColumn, lastNameColumn, phoneColumn, notesColumn);
+        cos.getChildren().add(table);
     }
 
 

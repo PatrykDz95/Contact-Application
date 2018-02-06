@@ -30,23 +30,23 @@ public class ContactList {
         return lastName.get();
     }
 
-    public void setLastName(String lastName) {
-        this.lastName.set(lastName);
+    public void setLastName(String firstName) {
+        this.lastName.set(firstName);
     }
 
     public String getPhoneNumber() {
         return phoneNumber.get();
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber.set(phoneNumber);
+    public void setPhoneNumber(String firstName) {
+        this.phoneNumber.set(firstName);
     }
 
     public String getNotes() {
         return notes.get();
     }
 
-    public void setNotes(String notes) {
-        this.notes.set(notes);
+    public void setNotes(String firstName) {
+        this.notes.set(firstName);
     }
 }
