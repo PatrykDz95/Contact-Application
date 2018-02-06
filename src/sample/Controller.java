@@ -25,7 +25,8 @@ public class Controller {
     @FXML
     private TableColumn notesColumn;
     @FXML
-    private GridPane cos;
+    private GridPane gridpane;
+
     public void initialize() {
                  table = new TableView<>();
                 ObservableList<ContactList> data = FXCollections.observableArrayList(
@@ -53,12 +54,7 @@ public class Controller {
 
         table.setItems(data);
         table.getColumns().addAll(firstColumn, lastNameColumn, phoneColumn, notesColumn);
-        cos.getChildren().add(table);
+        gridpane.getChildren().add(table);
     }
 
-
-//    @FXML
-//    public void showContactsList() {
-//
-//}
 }
