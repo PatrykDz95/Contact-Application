@@ -21,21 +21,21 @@ public class Controller {
 //    @FXML
 //    TableView tableView;
     @FXML
-    private TableColumn firstColumn;
+    private TableColumn firstColumn, lastNameColumn, phoneColumn, notesColumn;
+//    @FXML
+//    private TableColumn lastNameColumn;
+//    @FXML
+//    private TableColumn phoneColumn;
+//    @FXML
+//    private TableColumn notesColumn;
     @FXML
-    private TableColumn lastNameColumn;
-    @FXML
-    private TableColumn phoneColumn;
-    @FXML
-    private TableColumn notesColumn;
-    @FXML
-    private TextField firstNameField;
-    @FXML
-    private TextField lastNameField;
-    @FXML
-    private TextField phoneNumberField;
-    @FXML
-    private TextField notesField;
+    private TextField firstNameField, lastNameField, phoneNumberField, notesField;
+//    @FXML
+//    private TextField lastNameField;
+//    @FXML
+//    private TextField phoneNumberField;
+//    @FXML
+//    private TextField notesField;
     @FXML
     private GridPane gridpane;
 

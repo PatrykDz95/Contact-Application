@@ -1,6 +1,7 @@
 .tableColor{
-    -fx-background-color: #ff7700;
+    -fx-background-color: #ffb27e;
 }
-.columnColor{
-    -fx-background-color: #eefaff;
+.allButton{
+    -fx-background-color: #4aa099;
+    -fx-font-size: 15;
 }
