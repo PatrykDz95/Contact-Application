@@ -58,6 +58,7 @@
             <TextField fx:id="phoneNumberField" layoutX="250.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" promptText="Phone number" />
             <TextField fx:id="notesField" layoutX="375.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" promptText="Notes" />
             <Button layoutX="438.0" layoutY="40.0" mnemonicParsing="false" onAction="#addPerson" prefHeight="25.0" prefWidth="59.0" text="Add" />
+            <Button fx:id="deleteButton" layoutX="375.0" layoutY="40.0" mnemonicParsing="false" onAction="#deleteItem" text="Delete" />
          </children></Pane>
    </children>
 </GridPane>

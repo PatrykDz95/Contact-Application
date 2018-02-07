@@ -42,6 +42,7 @@ public class Controller {
     private ObservableList<ContactList> data;
 
     public void initialize() {
+
                  table = new TableView<>();
                 data = FXCollections.observableArrayList(
                 new ContactList("Jacob", "Smith", "jacob.smith@example.com", "note"),
@@ -63,7 +64,7 @@ public class Controller {
         );
 
         notesColumn.setCellValueFactory(
-                new PropertyValueFactory<ContactList, String>("notes")
+                new PropertyValueFactory<>("notes")
         );
 
         table.setItems(data);
@@ -73,13 +74,13 @@ public class Controller {
 
     @FXML
     public void addPerson(ActionEvent event){
-//        Text text = new Text();
-//        firstColumn.setGraphic(text);
-//        table.setPrefHeight(Control.USE_COMPUTED_SIZE);
-//        text.wrappingWidthProperty().bind(firstColumn.widthProperty());
-//        text.textProperty().bind(table.widthProperty());
-        if(!(firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty() ||
-                phoneNumberField.getText().isEmpty())) {
+        if(firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Empty fields!");
+            alert.setHeaderText("The Name and Last Name fields are empty!");
+            alert.setContentText("Please fill the required fields");
+            Optional<ButtonType> result = alert.showAndWait();
+        }else {
             data.add(new ContactList(firstNameField.getText(), lastNameField.getText(),
                     phoneNumberField.getText(), notesField.getText()));
 
@@ -87,36 +88,25 @@ public class Controller {
             lastNameField.clear();
             phoneNumberField.clear();
             notesField.clear();
-        }else {
-            firstNameField.setPromptText("Empty");
-            lastNameField.setPromptText("Empty");
-            phoneNumberField.setPromptText("Empty");
         }
     }
 
-//    @FXML
-//    public void handleKeyPressed(KeyEvent keyEvent){
-//        ContactList selectedItem = table.getSelectionModel().getSelectedItem();
-//        if(selectedItem != null){
-//            if(keyEvent.getCode().equals(KeyCode.DELETE)){
-//                deleteItem(selectedItem);
-//            }
-//        }
-//    }
-//
-//    public void deleteItem(ContactList item){
-//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        alert.setTitle("Delete Todo Item");
-//        alert.setHeaderText("Delete Person: " + firstColumn.getText());
-//        alert.setContentText("Are you sure? Click OK to confirm, or cancel to Back out.");
-//        Optional<ButtonType> result = alert.showAndWait();
-//        if(result.isPresent() && (result.get() == ButtonType.OK)){
-//            deleteTodoItem(item);
-//
-//        }
-//    }
-//
-//    public void deleteTodoItem(ContactList item){
-//        data.remove(item);
-//    }
+    @FXML
+    public void deleteItem(){
+        ContactList item =  table.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Want to delete " + table.getSelectionModel().getSelectedItem().getFirstName() + "?");
+        alert.setContentText("Are you sure? Click OK to confirm, or cancel to Back out.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && (result.get() == ButtonType.OK)){
+           deleteTodoItem(item);
+
+        }
+
+            }
+
+    public void deleteTodoItem(ContactList item){
+        data.remove(item);
+    }
 }
