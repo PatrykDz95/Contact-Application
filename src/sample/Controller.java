@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class Controller {
 
-    @FXML
+
     TableView<ContactList> table;
 //    @FXML
 //    TableView tableView;
@@ -42,8 +42,7 @@ public class Controller {
     private ObservableList<ContactList> data;
 
     public void initialize() {
-
-                 table = new TableView<>();
+                table = new TableView<>();
                 data = FXCollections.observableArrayList(
                 new ContactList("Jacob", "Smith", "jacob.smith@example.com", "note"),
                 new ContactList("Isabella", "Johnson", "isabella.johnson@example.com", "note"),
