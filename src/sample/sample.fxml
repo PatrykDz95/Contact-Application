@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="gridpane" alignment="center" prefHeight="438.0" prefWidth="549.0" styleClass="tableColor" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane fx:id="gridpane" alignment="center" prefHeight="438.0" prefWidth="549.0" styleClass="tableView" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -58,11 +58,19 @@
             <TextField fx:id="lastNameField" layoutX="125.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" promptText="Last name" />
             <TextField fx:id="phoneNumberField" layoutX="250.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" promptText="Phone number" />
             <TextField fx:id="notesField" layoutX="375.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" promptText="Notes" />
-            <Button fx:id="addButton" layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#addPerson" prefHeight="25.0" prefWidth="59.0" styleClass="allButton" text="Add" textAlignment="CENTER" />
-            <Button fx:id="deleteButton" layoutX="83.0" layoutY="40.0" mnemonicParsing="false" onAction="#deleteItem" styleClass="allButton" text="Delete" textAlignment="CENTER">
+            <Button fx:id="addButton" layoutY="40.0" mnemonicParsing="false" onAction="#addPerson" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Add" textAlignment="CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></Button>
+            <Button fx:id="deleteButton" layoutX="87.0" layoutY="40.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Delete" textAlignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Button>
+            <Button layoutX="173.0" layoutY="40.0" mnemonicParsing="false" onAction="#storeTodoItems" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Save" textAlignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Button>
+            <Button layoutX="259.0" layoutY="40.0" mnemonicParsing="false" onAction="#loadTodoItems" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Load" />
          </children></Pane>
    </children>
 </GridPane>

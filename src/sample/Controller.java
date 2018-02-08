@@ -7,43 +7,57 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.Optional;
 
 public class Controller {
 
 
     TableView<ContactList> table;
-//    @FXML
+    //    @FXML
 //    TableView tableView;
     @FXML
-    private TableColumn firstColumn, lastNameColumn, phoneColumn, notesColumn;
-//    @FXML
-//    private TableColumn lastNameColumn;
-//    @FXML
-//    private TableColumn phoneColumn;
-//    @FXML
-//    private TableColumn notesColumn;
+    private TableColumn firstColumn;
     @FXML
-    private TextField firstNameField, lastNameField, phoneNumberField, notesField;
-//    @FXML
-//    private TextField lastNameField;
-//    @FXML
-//    private TextField phoneNumberField;
-//    @FXML
-//    private TextField notesField;
+    private TableColumn lastNameColumn;
+    @FXML
+    private TableColumn phoneColumn;
+    @FXML
+    private TableColumn notesColumn;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField phoneNumberField;
+    @FXML
+    private TextField notesField;
     @FXML
     private GridPane gridpane;
 
     private ObservableList<ContactList> data;
 
+    private static String filename = "ContactList.txt";
+
     public void initialize() {
-                table = new TableView<>();
-                data = FXCollections.observableArrayList(
+
+
+        table = new TableView<>();
+        data = FXCollections.observableArrayList(
                 new ContactList("Jacob", "Smith", "jacob.smith@example.com", "note"),
                 new ContactList("Isabella", "Johnson", "isabella.johnson@example.com", "note"),
                 new ContactList("Ethan", "Williams", "ethan.williams@example.com", "note"),
@@ -71,15 +85,70 @@ public class Controller {
         gridpane.getChildren().add(table);
     }
 
+
+
     @FXML
-    public void addPerson(ActionEvent event){
-        if(firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty()) {
+    public void loadTodoItems() throws IOException {
+       // data = FXCollections.observableArrayList();
+        Path path = Paths.get(filename);
+        BufferedReader br = Files.newBufferedReader(path);
+        String input;
+
+        try{
+            while ((input = br.readLine())!=null){
+                String[] itemPieces = input.split("\t");
+
+                String firstColumn = itemPieces[0];
+                String lastColumn = itemPieces[1];
+                String phoneColumn = itemPieces[2];
+                String notesColumn = itemPieces[3];
+
+               // LocalDate date = LocalDate.parse(dateString,formatter);
+                ContactList todoItem = new ContactList(firstColumn,lastColumn,phoneColumn,notesColumn);
+                data.add(todoItem);
+            }
+        }finally {
+            if(br!=null){
+                br.close();
+            }
+        }
+    }
+    @FXML
+    public void storeTodoItems() throws IOException {
+        Path path = Paths.get(filename);
+        BufferedWriter bw = Files.newBufferedWriter(path);
+        try{
+            Iterator<ContactList> iter = data.iterator();
+            while(iter.hasNext()){
+                ContactList item = iter.next();
+                bw.write(String.format("%s\t%s\t%s\t%s",
+                        item.getFirstName(),
+                        item.getLastName(),
+                        item.getPhoneNumber(),
+                        item.getNotes()));
+                bw.newLine();
+
+            }
+        }finally {
+            if(bw!=null){
+                bw.close();
+            }
+        }
+    }
+
+
+
+
+
+    @FXML
+    public void addPerson() {
+        if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Empty fields!");
             alert.setHeaderText("The Name and Last Name fields are empty!");
             alert.setContentText("Please fill the required fields");
             Optional<ButtonType> result = alert.showAndWait();
-        }else {
+        } else {
             data.add(new ContactList(firstNameField.getText(), lastNameField.getText(),
                     phoneNumberField.getText(), notesField.getText()));
 
@@ -91,21 +160,22 @@ public class Controller {
     }
 
     @FXML
-    public void deleteItem(){
-        ContactList item =  table.getSelectionModel().getSelectedItem();
+    public void deleteItem() {
+        ContactList item = table.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete");
         alert.setHeaderText("Want to delete " + table.getSelectionModel().getSelectedItem().getFirstName() + "?");
         alert.setContentText("Are you sure? Click OK to confirm, or cancel to Back out.");
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.isPresent() && (result.get() == ButtonType.OK)){
-           deleteTodoItem(item);
+        if (result.isPresent() && (result.get() == ButtonType.OK)) {
+            deleteTodoItem(item);
 
         }
 
-            }
+    }
 
-    public void deleteTodoItem(ContactList item){
+    public void deleteTodoItem(ContactList item) {
         data.remove(item);
     }
+
 }

@@ -1,3 +1,9 @@
+package sample;
+
+import javafx.application.Platform;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.TextField;
+
 //package sample;
 //
 //import javafx.collections.ObservableList;
@@ -17,7 +23,6 @@
 //import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
 //import java.io.InputStream;
-//
 //
 //public class ContactData {
 //

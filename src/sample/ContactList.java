@@ -3,14 +3,14 @@ package sample;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ContactList {
-
+    // using SimpleStringProperty to add listeners or bind it to other properties
     private SimpleStringProperty firstName;
     private SimpleStringProperty lastName;
     private SimpleStringProperty phoneNumber;
     private SimpleStringProperty notes;
 
-    public ContactList(String firstName, String lastName,
-                       String phoneNumber, String notes) {
+    public ContactList(String firstName, String lastName, String phoneNumber, String notes) {
+
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);

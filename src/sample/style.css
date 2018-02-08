@@ -1,5 +1,6 @@
-.tableColor{
+.tableView{
     -fx-background-color: #ffb27e;
+    -fx-font-family: "Georgia";
 }
 .allButton{
     -fx-background-color: #4aa099;
