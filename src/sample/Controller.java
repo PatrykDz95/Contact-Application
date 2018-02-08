@@ -57,13 +57,7 @@ public class Controller {
 
 
         table = new TableView<>();
-        data = FXCollections.observableArrayList(
-                new ContactList("Jacob", "Smith", "jacob.smith@example.com", "note"),
-                new ContactList("Isabella", "Johnson", "isabella.johnson@example.com", "note"),
-                new ContactList("Ethan", "Williams", "ethan.williams@example.com", "note"),
-                new ContactList("Emma", "Jones", "emma.jones@example.com", "note"),
-                new ContactList("Michael", "Brown", "michael.brown@example.com", "note")
-        );
+        data = FXCollections.observableArrayList();
 
 
         firstColumn.setCellValueFactory(
@@ -98,19 +92,20 @@ public class Controller {
             while ((input = br.readLine())!=null){
                 String[] itemPieces = input.split("\t");
 
-                String firstColumn = itemPieces[0];
-                String lastColumn = itemPieces[1];
-                String phoneColumn = itemPieces[2];
-                String notesColumn = itemPieces[3];
+                String firstColumne = itemPieces[0];
+                String lastColumne = itemPieces[1];
+                String phoneColumne = itemPieces[2];
+                String notesColumne = itemPieces[3];
 
                // LocalDate date = LocalDate.parse(dateString,formatter);
-                ContactList todoItem = new ContactList(firstColumn,lastColumn,phoneColumn,notesColumn);
-                data.add(todoItem);
+                ContactList todoItem = new ContactList(firstColumne,lastColumne,phoneColumne,notesColumne);
+//                if(!(data.contains(todoItem))){  TODO: add if to not load the same note for ever
+                  data.add(todoItem);
+//                }
+
             }
         }finally {
-            if(br!=null){
-                br.close();
-            }
+
         }
     }
     @FXML
