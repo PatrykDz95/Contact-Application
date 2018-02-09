@@ -17,7 +17,6 @@ import java.util.Iterator;
 public class ContactData {
 
     private static ContactData instance = new ContactData();
-    private static String filename = "TodoListItems.txt";
     private TableView<ContactList> table;
     private ObservableList<ContactList> data;
 
@@ -28,6 +27,7 @@ public class ContactData {
     private ContactData(){
         table = new TableView<>();
         data = FXCollections.observableArrayList();
+
     }
 
     // Using ObservableList for performance reasons
@@ -39,8 +39,6 @@ public class ContactData {
         data.add(person);
     }
 
-
-
     public void deleteTodoItem(ContactList person){
         data.remove(person);
     }
@@ -48,4 +46,6 @@ public class ContactData {
     public TableView<ContactList> getTable() {
         return table;
     }
+
+
 }

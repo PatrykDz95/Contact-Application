@@ -27,7 +27,7 @@ public class Main extends Application {
 //    @Override
 //    public void stop() throws Exception {
 //        try {
-//            controller.storeTodoItems();
+//            controller.savePersonInfo();
 //
 //        } catch(IOException e) {
 //            System.out.println(e.getMessage());
@@ -37,7 +37,7 @@ public class Main extends Application {
 //    @Override
 //    public void init() throws Exception {
 //        try {
-//            controller.loadTodoItems();
+//            controller.loadPersonInfo();
 //
 //        } catch(IOException e) {
 //            System.out.println(e.getMessage());

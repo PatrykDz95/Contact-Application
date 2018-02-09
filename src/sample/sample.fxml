@@ -62,15 +62,15 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></Button>
-            <Button fx:id="deleteButton" layoutX="87.0" layoutY="40.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Delete" textAlignment="CENTER">
+            <Button fx:id="deleteButton" layoutX="87.0" layoutY="40.0" mnemonicParsing="false" onAction="#deletePerson" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Delete" textAlignment="CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></Button>
-            <Button layoutX="173.0" layoutY="40.0" mnemonicParsing="false" onAction="#storeTodoItems" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Save" textAlignment="CENTER">
+            <Button layoutX="173.0" layoutY="40.0" mnemonicParsing="false" onAction="#savePersonInfo" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Save" textAlignment="CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></Button>
-            <Button layoutX="259.0" layoutY="40.0" mnemonicParsing="false" onAction="#loadTodoItems" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Load" />
+            <Button layoutX="259.0" layoutY="40.0" mnemonicParsing="false" onAction="#loadPersonInfo" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Load" />
          </children></Pane>
    </children>
 </GridPane>

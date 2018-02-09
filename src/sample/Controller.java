@@ -1,18 +1,9 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,16 +11,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Optional;
 
 public class Controller {
 
-
-  //  TableView<ContactList> table;
-    //    @FXML
-//    TableView tableView;
     @FXML
     private TableColumn firstColumn;
     @FXML
@@ -49,15 +35,10 @@ public class Controller {
     @FXML
     private GridPane gridpane;
 
-   // private ObservableList<ContactList> data;
-
     private static String filename = "ContactList.txt";
+    public Boolean activeSaveButton = true;
 
     public void initialize() {
-
-
-
-
 
         firstColumn.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")
@@ -78,17 +59,14 @@ public class Controller {
         gridpane.getChildren().add(ContactData.getInstance().getTable());
     }
 
-
-
     @FXML
-    public void loadTodoItems() throws IOException {
-       // data = FXCollections.observableArrayList();
+    public void loadPersonInfo() throws IOException {
         Path path = Paths.get(filename);
         BufferedReader br = Files.newBufferedReader(path);
         String input;
 
         try{
-            while ((input = br.readLine())!=null){
+            while ((input = br.readLine())!=null && activeSaveButton){
                 String[] itemPieces = input.split("\t");
 
                 String firstColumne = itemPieces[0];
@@ -96,19 +74,21 @@ public class Controller {
                 String phoneColumne = itemPieces[2];
                 String notesColumne = itemPieces[3];
 
-               // LocalDate date = LocalDate.parse(dateString,formatter);
                 ContactList todoItem = new ContactList(firstColumne,lastColumne,phoneColumne,notesColumne);
-//                if(!(data.contains(todoItem))){  TODO: add if to not load the same note for ever
+
                 ContactData.getInstance().getData().add(todoItem);
-//                }
 
-            }
+                }
+            activeSaveButton = false;
+
         }finally {
-
+            if (br != null) {
+                br.close();
+            }
         }
     }
     @FXML
-    public void storeTodoItems() throws IOException {
+    public void savePersonInfo() throws IOException {
         Path path = Paths.get(filename);
         BufferedWriter bw = Files.newBufferedWriter(path);
         try{
@@ -121,25 +101,22 @@ public class Controller {
                         item.getPhoneNumber(),
                         item.getNotes()));
                 bw.newLine();
-
+                activeSaveButton = false;
             }
         }finally {
-            if(bw!=null){
+            if(bw!=null) {
                 bw.close();
             }
-        }
     }
-
-
-
-
+    }
 
     @FXML
     public void addPerson() {
+        activeSaveButton = false;
         if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Empty fields!");
-            alert.setHeaderText("The Name and Last Name fields are empty!");
+            alert.setHeaderText("The Name or Last Name fields are empty!");
             alert.setContentText("Please fill the required fields");
             Optional<ButtonType> result = alert.showAndWait();
         } else {
@@ -154,22 +131,31 @@ public class Controller {
     }
 
     @FXML
-    public void deleteItem() {
-        ContactList item = ContactData.getInstance().getTable().getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete");
-        alert.setHeaderText("Want to delete " + ContactData.getInstance().getTable().getSelectionModel().getSelectedItem().getFirstName() + "?");
-        alert.setContentText("Are you sure? Click OK to confirm, or cancel to Back out.");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && (result.get() == ButtonType.OK)) {
-            deleteTodoItem(item);
+    public void deletePerson() {
+        try {
+            ContactList person = ContactData.getInstance().getTable().getSelectionModel().getSelectedItem();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Want to delete " + ContactData.getInstance().getTable().
+                    getSelectionModel().getSelectedItem().getFirstName() + "?");
+            alert.setContentText("Are you sure? Click OK to confirm, or cancel to Back out.");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                ContactData.getInstance().deleteTodoItem(person);
+                activeSaveButton = false;
+            }
+        }catch (Exception e){
+                Alert NotChosenPerson = new Alert(Alert.AlertType.ERROR);
+                //NotChosenPerson.setTitle("Delete");
+                NotChosenPerson.setHeaderText("You must first select a person to delete");
+                //NotChosenPerson.setContentText("Are you sure? Click OK to confirm, or cancel to Back out.");
+                Optional<ButtonType> resultT = NotChosenPerson.showAndWait();
 
-        }
+
+            }
 
     }
 
-    public void deleteTodoItem(ContactList item) {
-        ContactData.getInstance().getData().remove(item);
-    }
+
 
 }
