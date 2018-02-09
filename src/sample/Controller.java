@@ -27,7 +27,7 @@ import java.util.Optional;
 public class Controller {
 
 
-    TableView<ContactList> table;
+  //  TableView<ContactList> table;
     //    @FXML
 //    TableView tableView;
     @FXML
@@ -49,15 +49,14 @@ public class Controller {
     @FXML
     private GridPane gridpane;
 
-    private ObservableList<ContactList> data;
+   // private ObservableList<ContactList> data;
 
     private static String filename = "ContactList.txt";
 
     public void initialize() {
 
 
-        table = new TableView<>();
-        data = FXCollections.observableArrayList();
+
 
 
         firstColumn.setCellValueFactory(
@@ -74,9 +73,9 @@ public class Controller {
                 new PropertyValueFactory<>("notes")
         );
 
-        table.setItems(data);
-        table.getColumns().addAll(firstColumn, lastNameColumn, phoneColumn, notesColumn);
-        gridpane.getChildren().add(table);
+        ContactData.getInstance().getTable().setItems( ContactData.getInstance().getData());
+        ContactData.getInstance().getTable().getColumns().addAll(firstColumn, lastNameColumn, phoneColumn, notesColumn);
+        gridpane.getChildren().add(ContactData.getInstance().getTable());
     }
 
 
@@ -100,7 +99,7 @@ public class Controller {
                // LocalDate date = LocalDate.parse(dateString,formatter);
                 ContactList todoItem = new ContactList(firstColumne,lastColumne,phoneColumne,notesColumne);
 //                if(!(data.contains(todoItem))){  TODO: add if to not load the same note for ever
-                  data.add(todoItem);
+                ContactData.getInstance().getData().add(todoItem);
 //                }
 
             }
@@ -113,7 +112,7 @@ public class Controller {
         Path path = Paths.get(filename);
         BufferedWriter bw = Files.newBufferedWriter(path);
         try{
-            Iterator<ContactList> iter = data.iterator();
+            Iterator<ContactList> iter = ContactData.getInstance().getData().iterator();
             while(iter.hasNext()){
                 ContactList item = iter.next();
                 bw.write(String.format("%s\t%s\t%s\t%s",
@@ -144,7 +143,7 @@ public class Controller {
             alert.setContentText("Please fill the required fields");
             Optional<ButtonType> result = alert.showAndWait();
         } else {
-            data.add(new ContactList(firstNameField.getText(), lastNameField.getText(),
+            ContactData.getInstance().getData().add(new ContactList(firstNameField.getText(), lastNameField.getText(),
                     phoneNumberField.getText(), notesField.getText()));
 
             firstNameField.clear();
@@ -156,10 +155,10 @@ public class Controller {
 
     @FXML
     public void deleteItem() {
-        ContactList item = table.getSelectionModel().getSelectedItem();
+        ContactList item = ContactData.getInstance().getTable().getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete");
-        alert.setHeaderText("Want to delete " + table.getSelectionModel().getSelectedItem().getFirstName() + "?");
+        alert.setHeaderText("Want to delete " + ContactData.getInstance().getTable().getSelectionModel().getSelectedItem().getFirstName() + "?");
         alert.setContentText("Are you sure? Click OK to confirm, or cancel to Back out.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && (result.get() == ButtonType.OK)) {
@@ -170,7 +169,7 @@ public class Controller {
     }
 
     public void deleteTodoItem(ContactList item) {
-        data.remove(item);
+        ContactData.getInstance().getData().remove(item);
     }
 
 }
