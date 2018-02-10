@@ -23,24 +23,4 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-   private Controller controller = new Controller();
-//    @Override
-//    public void stop() throws Exception {
-//        try {
-//            controller.savePersonInfo();
-//
-//        } catch(IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-
-//    @Override
-//    public void init() throws Exception {
-//        try {
-//            controller.loadPersonInfo();
-//
-//        } catch(IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
 }

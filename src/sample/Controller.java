@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class Controller {
     private GridPane gridpane;
 
     private static String filename = "ContactList.txt";
-    public Boolean activeSaveButton = true;
+    public Boolean activeLoadButton = true;
 
     public void initialize() {
 
@@ -66,9 +65,9 @@ public class Controller {
         String input;
 
         try{
-            while ((input = br.readLine())!=null && activeSaveButton){
+            while ((input = br.readLine())!=null && activeLoadButton){
                 String[] itemPieces = input.split("\t");
-
+                // loading persons from txt file
                 String firstColumne = itemPieces[0];
                 String lastColumne = itemPieces[1];
                 String phoneColumne = itemPieces[2];
@@ -79,7 +78,7 @@ public class Controller {
                 ContactData.getInstance().getData().add(todoItem);
 
                 }
-            activeSaveButton = false;
+            activeLoadButton = false;
 
         }finally {
             if (br != null) {
@@ -92,6 +91,7 @@ public class Controller {
         Path path = Paths.get(filename);
         BufferedWriter bw = Files.newBufferedWriter(path);
         try{
+            //saving perons to txt file
             Iterator<ContactList> iter = ContactData.getInstance().getData().iterator();
             while(iter.hasNext()){
                 ContactList item = iter.next();
@@ -101,7 +101,6 @@ public class Controller {
                         item.getPhoneNumber(),
                         item.getNotes()));
                 bw.newLine();
-                activeSaveButton = false;
             }
         }finally {
             if(bw!=null) {
@@ -111,8 +110,8 @@ public class Controller {
     }
 
     @FXML
-    public void addPerson() {
-        activeSaveButton = false;
+    public void addNewRow() {
+
         if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Empty fields!");
@@ -131,7 +130,7 @@ public class Controller {
     }
 
     @FXML
-    public void deletePerson() {
+    public void deletePersonRow() {
         try {
             ContactList person = ContactData.getInstance().getTable().getSelectionModel().getSelectedItem();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -141,15 +140,12 @@ public class Controller {
             alert.setContentText("Are you sure? Click OK to confirm, or cancel to Back out.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                ContactData.getInstance().deleteTodoItem(person);
-                activeSaveButton = false;
+                ContactData.getInstance().deletePerson(person);
             }
         }catch (Exception e){
                 Alert NotChosenPerson = new Alert(Alert.AlertType.ERROR);
-                //NotChosenPerson.setTitle("Delete");
                 NotChosenPerson.setHeaderText("You must first select a person to delete");
-                //NotChosenPerson.setContentText("Are you sure? Click OK to confirm, or cancel to Back out.");
-                Optional<ButtonType> resultT = NotChosenPerson.showAndWait();
+                Optional<ButtonType> smallAlert = NotChosenPerson.showAndWait();
 
 
             }

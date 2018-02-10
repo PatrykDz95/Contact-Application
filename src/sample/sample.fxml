@@ -58,11 +58,11 @@
             <TextField fx:id="lastNameField" layoutX="125.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" promptText="Last name" />
             <TextField fx:id="phoneNumberField" layoutX="250.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" promptText="Phone number" />
             <TextField fx:id="notesField" layoutX="375.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" promptText="Notes" />
-            <Button fx:id="addButton" layoutY="40.0" mnemonicParsing="false" onAction="#addPerson" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Add" textAlignment="CENTER">
+            <Button fx:id="addButton" layoutY="40.0" mnemonicParsing="false" onAction="#addNewRow" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Add" textAlignment="CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></Button>
-            <Button fx:id="deleteButton" layoutX="87.0" layoutY="40.0" mnemonicParsing="false" onAction="#deletePerson" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Delete" textAlignment="CENTER">
+            <Button fx:id="deleteButton" layoutX="87.0" layoutY="40.0" mnemonicParsing="false" onAction="#deletePersonRow" prefHeight="31.0" prefWidth="77.0" styleClass="allButton" text="Delete" textAlignment="CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></Button>
